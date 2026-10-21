@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aiah Voting Team • Official Dashboard</title>
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --teal-primary: #0d9488;
+      --teal-dark: #0f766e;
+      --teal-light: #14b8a6;
+      --teal-accent: #2dd4bf;
+      --teal-subtle: #ccfbf1;
+      --bg-gradient-start: #042f2e;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(15, 23, 42, 0.75);
+      --card-border: rgba(45, 212, 191, 0.2);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-main);
+      min-height: 100vh;
+      padding-bottom: 60px;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Top Navigation / Header */
+    header {
+      padding: 20px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(45, 212, 191, 0.15);
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--teal-accent), var(--teal-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #042f2e;
+      font-size: 1.2rem;
+      font-weight: 800;
+      box-shadow: 0 4px 15px rgba(45, 212, 191, 0.3);
+    }
+
+    .logo-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(to right, #ffffff, var(--teal-accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Social Icons Styling */
+    .social-links {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .social-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--card-border);
+      color: var(--teal-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .social-icon:hover {
+      background: var(--teal-primary);
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(45, 212, 191, 0.3);
+    }
+
+    /* Banner Section */
+    .banner-wrapper {
+      width: 100%;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(45, 212, 191, 0.15);
+      border: 1px solid var(--card-border);
+      position: relative;
+      background-color: #0b1329;
+    }
+
+    .banner-img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .banner-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(4, 47, 46, 0.95), transparent);
+      padding: 30px 25px 20px;
+    }
+
+    .banner-overlay h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 6px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .banner-overlay p {
+      color: var(--teal-subtle);
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    /* About Section */
+    .about-card {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(45, 212, 191, 0.25);
+      border-radius: 16px;
+      padding: 24px 28px;
+      margin-bottom: 30px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .about-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      color: var(--teal-accent);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .about-text {
+      color: var(--text-main);
+      font-size: 0.98rem;
+      line-height: 1.6;
+    }
+
+    /* Controls Bar */
+    .controls-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 30px;
+      background: rgba(15, 23, 42, 0.6);
+      padding: 16px 20px;
+      border-radius: 16px;
+      border: 1px solid rgba(45, 212, 191, 0.15);
+      backdrop-filter: blur(10px);
+    }
+
+    .search-box {
+      position: relative;
+      flex: 1;
+      min-width: 260px;
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--teal-accent);
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 12px 15px 12px 42px;
+      border-radius: 10px;
+      border: 1px solid rgba(45, 212, 191, 0.2);
+      background: rgba(4, 47, 46, 0.4);
+      color: #fff;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .search-input:focus {
+      border-color: var(--teal-accent);
+      box-shadow: 0 0 10px rgba(45, 212, 191, 0.2);
+    }
+
+    .filter-pills {
+      display: flex;
+      gap: 8px;
+    }
+
+    .pill-btn {
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(45, 212, 191, 0.2);
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .pill-btn.active, .pill-btn:hover {
+      background: var(--teal-primary);
+      color: #ffffff;
+      border-color: var(--teal-accent);
+    }
+
+    /* Cards Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      backdrop-filter: blur(12px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(to right, var(--teal-accent), var(--teal-dark));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(45, 212, 191, 0.15);
+      border-color: var(--teal-accent);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-tag {
+      align-self: flex-start;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(45, 212, 191, 0.15);
+      color: var(--teal-accent);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+
+    .card-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    .btn-support {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--teal-primary), var(--teal-dark));
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .btn-support:hover {
+      background: linear-gradient(135deg, var(--teal-accent), var(--teal-primary));
+      color: #042f2e;
+      box-shadow: 0 6px 18px rgba(45, 212, 191, 0.4);
+    }
+
+    .btn-copy {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      border: 1px solid var(--card-border);
+      background: rgba(4, 47, 46, 0.5);
+      color: var(--teal-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-copy:hover {
+      background: var(--teal-primary);
+      color: #fff;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--teal-accent);
+      color: #042f2e;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      padding-top: 25px;
+      border-top: 1px solid rgba(45, 212, 191, 0.15);
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    footer .social-links {
+      justify-content: center;
+    }
+
+    @media (max-width: 600px) {
+      .banner-img {
+        height: 200px;
+      }
+      .banner-overlay h1 {
+        font-size: 1.4rem;
+      }
+      .controls-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="logo-container">
+        <div class="logo-badge">A</div>
+        <div class="logo-title">BINI Aiah Voting Team</div>
+      </div>
+      <!-- Social Media Header Links -->
+      <div class="social-links">
+        <a href="https://x.com/BiniAiahBVT" target="_blank" class="social-icon" title="Follow on X (Twitter)">
+          <i class="fa-brands fa-x-twitter"></i>
+        </a>
+        <a href="https://www.facebook.com/share/1CJvbKcpE7/" target="_blank" class="social-icon" title="Follow on Facebook">
+          <i class="fa-brands fa-facebook-f"></i>
+        </a>
+        <a href="https://www.instagram.com/biniaiahbvt?cplk=MXFtbnF3YmxxYmw5eA==" target="_blank" class="social-icon" title="Follow on Instagram">
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+      </div>
+    </header>
+
+    <!-- Header Banner Image Section -->
+    <div class="banner-wrapper">
+      <img id="mainBanner" src="banner.jpg" alt="Aiah Funding Campaigns Banner" class="banner-img" onerror="this.src='https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80'">
+      <div class="banner-overlay">
+        <h1>Official Voting & Funding Hub</h1>
+        <p>Support BINI Aiah's projects worldwide through direct voting and funding links.</p>
+      </div>
+    </div>
+
+    <!-- About Section -->
+    <div class="about-card">
+      <div class="about-header">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>About BINI Aiah Voting Team</span>
+      </div>
+      <p class="about-text">
+        Welcome! We are the <strong>Official Voting Team of BINI Aiah</strong>. This website serves as the central official dashboard for all active voting and funding links, created for quick and easy access for all voters and Bloom supporters. Bookmark this page to stay updated on current billboard, digital, and media campaigns!
+      </p>
+    </div>
+
+    <!-- Controls / Search -->
+    <div class="controls-bar">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="searchInput" class="search-input" placeholder="Search projects (e.g. Seoul, Ads, Manila)...">
+      </div>
+      <div class="filter-pills">
+        <button class="pill-btn active" onclick="filterCategory('all')">All</button>
+        <button class="pill-btn" onclick="filterCategory('international')">International</button>
+        <button class="pill-btn" onclick="filterCategory('local')">Local/Digital</button>
+      </div>
+    </div>
+
+    <!-- Project Cards Grid -->
+    <div class="grid" id="cardsGrid"></div>
+
+    <!-- Footer -->
+    <footer>
+      <p>Connect with <strong>BINI Aiah Voting Team</strong>:</p>
+      <div class="social-links">
+        <a href="https://x.com/BiniAiahBVT" target="_blank" class="social-icon" title="X (Twitter)">
+          <i class="fa-brands fa-x-twitter"></i>
+        </a>
+        <a href="https://www.facebook.com/share/1CJvbKcpE7/" target="_blank" class="social-icon" title="Facebook">
+          <i class="fa-brands fa-facebook-f"></i>
+        </a>
+        <a href="https://www.instagram.com/biniaiahbvt?cplk=MXFtbnF3YmxxYmw5eA==" target="_blank" class="social-icon" title="Instagram">
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+      </div>
+      <p style="margin-top: 10px;">Created with 🩵 for BINI Aiah Projects • Hosted on GitHub Pages</p>
+    </footer>
+  </div>
+
+  <!-- Copy Toast Notification -->
+  <div id="toast" class="toast">
+    <i class="fa-solid fa-circle-check"></i>
+    <span>Link copied to clipboard!</span>
+  </div>
+
+  <script>
+    // List of funding campaigns
+    const campaigns = [
+      {
+        id: 1,
+        title: "Seoul Banner ads (OOH)",
+        category: "international",
+        tag: "Korea • Billboard",
+        desc: "Out-of-home banner advertisement campaign in Seoul, South Korea to boost international visibility.",
+        link: "https://kookylinkpage.kooky.io/content/funding/667"
+      },
+      {
+        id: 2,
+        title: "IG reels ads (100k+ views)",
+        category: "local",
+        tag: "Social Media • Digital",
+        desc: "Targeted Instagram Reels promotional campaign aiming for over 100k+ views to expand digital reach.",
+        link: "https://kookylinkpage.kooky.io/content/funding/669"
+      },
+      {
+        id: 3,
+        title: "LA & Texas Screen Ads in U.S",
+        category: "international",
+        tag: "USA • Digital Screen",
+        desc: "High-impact digital screen advertisements across prominent locations in Los Angeles and Texas.",
+        link: "https://kookylinkpage.kooky.io/content/funding/666"
+      },
+      {
+        id: 4,
+        title: "Malaysia Shopping Mall Ads",
+        category: "international",
+        tag: "Malaysia • Mall Display",
+        desc: "Promotional LED display advertisements inside premier shopping malls across Malaysia.",
+        link: "https://kookylinkpage.kooky.io/content/funding/668"
+      },
+      {
+        id: 5,
+        title: "Manila LED ads",
+        category: "local",
+        tag: "Philippines • LED Screen",
+        desc: "Prime LED billboard advertising campaign located along major highways in Metro Manila.",
+        link: "https://kookylinkpage.kooky.io/content/funding/670"
+      },
+      {
+        id: 6,
+        title: "Seoul Subway Ads",
+        category: "international",
+        tag: "Korea • Subway Screen",
+        desc: "High-foot-traffic subway station screen advertisements across major lines in Seoul.",
+        link: "https://kookylinkpage.kooky.io/content/funding/671"
+      }
+    ];
+
+    const cardsGrid = document.getElementById('cardsGrid');
+    const searchInput = document.getElementById('searchInput');
+
+    let currentFilter = 'all';
+
+    function renderCards(items) {
+      cardsGrid.innerHTML = '';
+      if (items.length === 0) {
+        cardsGrid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);">No funding projects found matching your search.</div>`;
+        return;
+      }
+
+      items.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <div>
+            <span class="card-tag">${item.tag}</span>
+            <h2 class="card-title">${item.title}</h2>
+            <p class="card-desc">${item.desc}</p>
+          </div>
+          <div class="card-actions">
+            <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="btn-support">
+              <i class="fa-solid fa-heart"></i> Support Now
+            </a>
+            <button class="btn-copy" onclick="copyLink('${item.link}')" title="Copy Funding Link">
+              <i class="fa-solid fa-copy"></i>
+            </button>
+          </div>
+        `;
+        cardsGrid.appendChild(card);
+      });
+    }
+
+    function filterData() {
+      const query = searchInput.value.toLowerCase();
+      const filtered = campaigns.filter(item => {
+        const matchesCategory = currentFilter === 'all' || item.category === currentFilter;
+        const matchesQuery = item.title.toLowerCase().includes(query) || 
+                             item.tag.toLowerCase().includes(query) || 
+                             item.desc.toLowerCase().includes(query);
+        return matchesCategory && matchesQuery;
+      });
+      renderCards(filtered);
+    }
+
+    function filterCategory(cat) {
+      currentFilter = cat;
+      document.querySelectorAll('.pill-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      filterData();
+    }
+
+    function copyLink(link) {
+      navigator.clipboard.writeText(link).then(() => {
+        const toast = document.getElementById('toast');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2500);
+      });
+    }
+
+    searchInput.addEventListener('input', filterData);
+
+    // Initial render
+    renderCards(campaigns);
+  </script>
+</body>
+</html>
