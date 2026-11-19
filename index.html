@@ -701,7 +701,7 @@
   <div id="toast" class="toast">
     <i class="fa-solid fa-circle-check"></i>
     <span>Link copied to clipboard!</span>
-   </div>
+  </div>
   <script>
     const campaigns = [
       {
@@ -711,6 +711,17 @@
         tag: "JuanCast • Birthday Poll",
         desc: "Cast your daily votes on JuanCast to win a special Birthday LED Billboard advertisement for BINI Aiah!",
         link: "https://juancast.ph/castvote.php?pollID=il8NvKwTjCHv1DLqya1j",
+        completed: false
+      },
+      {
+        id: 8,
+        title: "AIAHrchives Merch",
+        type: "fundings",
+        tag: "Official Merch • Pre-Order",
+        desc: "Support BINI Aiah's projects by ordering from the official AIAHrchives fan merchandise pre-order form.",
+        link: "https://form.jotform.com/263170665355460",
+        btnLabel: "Order Now",
+        btnIcon: "fa-bag-shopping",
         completed: false
       },
       {
@@ -753,10 +764,15 @@
         const card = document.createElement('div');
         card.className = `card${item.completed ? ' completed' : ''}`;
 
+        const defaultIcon = item.type === 'votings' ? 'fa-check-to-slot' : 'fa-heart';
+        const defaultLabel = item.type === 'votings' ? 'Vote Now' : 'Support Now';
+        const iconClass = item.btnIcon || defaultIcon;
+        const labelText = item.btnLabel || defaultLabel;
+
         const actionBtn = item.completed
           ? `<span class="btn-support completed-btn"><i class="fa-solid fa-circle-check"></i> Completed</span>`
           : `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="btn-support">
-              <i class="fa-solid ${item.type === 'votings' ? 'fa-check-to-slot' : 'fa-heart'}"></i> ${item.type === 'votings' ? 'Vote Now' : 'Support Now'}
+              <i class="fa-solid ${iconClass}"></i> ${labelText}
             </a>`;
 
         const statusBadge = item.completed
@@ -820,5 +836,3 @@
   </script>
 </body>
 </html>
-
-          
