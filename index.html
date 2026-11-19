@@ -361,13 +361,13 @@
     }
 
     .card.completed {
-      opacity: 0.82;
-      border-color: rgba(52, 211, 153, 0.3);
+      opacity: 0.88;
+      border-color: rgba(52, 211, 153, 0.35);
     }
 
     .card.completed:hover {
       transform: none;
-      border-color: rgba(52, 211, 153, 0.45);
+      border-color: rgba(52, 211, 153, 0.5);
     }
 
     .card-top-row {
@@ -411,8 +411,58 @@
     .card-desc {
       font-size: 0.85rem;
       color: var(--text-muted);
-      margin-bottom: 18px;
+      margin-bottom: 14px;
       line-height: 1.4;
+    }
+
+    /* Progress Bar Styles */
+    .progress-wrapper {
+      background: rgba(12, 74, 110, 0.35);
+      border: 1px solid rgba(125, 211, 252, 0.15);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 16px;
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      margin-bottom: 6px;
+    }
+
+    .progress-stats {
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .progress-pct {
+      color: var(--glacier-accent);
+      font-weight: 800;
+    }
+
+    .card.completed .progress-pct {
+      color: #34d399;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      background: rgba(15, 23, 42, 0.85);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--glacier-primary), var(--glacier-accent));
+      transition: width 0.5s ease;
+    }
+
+    .card.completed .progress-fill {
+      background: linear-gradient(90deg, #059669, #34d399);
     }
 
     .card-actions {
@@ -734,6 +784,8 @@
         tag: "JuanCast • Birthday Poll",
         desc: "Cast your daily votes on JuanCast to win a special Birthday LED Billboard advertisement for BINI Aiah!",
         link: "https://juancast.ph/castvote.php?pollID=il8NvKwTjCHv1DLqya1j",
+        percent: 89.6,
+        progressText: "7,886 / 8,800 Suns",
         completed: false
       },
       {
@@ -754,6 +806,8 @@
         tag: "Korea • Billboard",
         desc: "Out-of-home banner advertisement campaign in Seoul, South Korea to boost international visibility.",
         link: "https://kookylinkpage.kooky.io/content/funding/667",
+        percent: 100,
+        progressText: "1,500,000 / 1,500,000 Credits",
         completed: true
       },
       {
@@ -763,6 +817,8 @@
         tag: "Social Media • Digital",
         desc: "Targeted Instagram Reels promotional campaign aiming for over 100k+ views to expand digital reach.",
         link: "https://kookylinkpage.kooky.io/content/funding/669",
+        percent: 19,
+        progressText: "462,743 / 2,400,000 Credits",
         completed: false
       }
     ];
@@ -802,6 +858,20 @@
           ? `<span class="badge-completed"><i class="fa-solid fa-check"></i> Complete</span>`
           : '';
 
+        const progressHTML = typeof item.percent === 'number'
+          ? `
+            <div class="progress-wrapper">
+              <div class="progress-header">
+                <span class="progress-stats">${item.progressText}</span>
+                <span class="progress-pct">${item.percent}%</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-fill" style="width: ${Math.min(item.percent, 100)}%;"></div>
+              </div>
+            </div>
+          `
+          : '';
+
         card.innerHTML = `
           <div>
             <div class="card-top-row">
@@ -810,7 +880,7 @@
             </div>
             <h3 class="card-title">${item.title}</h3>
             <p class="card-desc">${item.desc}</p>
-            <a href="${item.link}" target="_blank" rel="noopener noreferrer" style="display: inline-block; color: var(--glacier-accent); font-size: 0.78rem; margin-bottom: 14px; word-break: break-all;">${item.link}</a>
+            ${progressHTML}
           </div>
           <div class="card-actions">
             ${actionBtn}
