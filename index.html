@@ -360,15 +360,45 @@
       border-color: var(--glacier-accent);
     }
 
+    .card.completed {
+      opacity: 0.82;
+      border-color: rgba(52, 211, 153, 0.3);
+    }
+
+    .card.completed:hover {
+      transform: none;
+      border-color: rgba(52, 211, 153, 0.45);
+    }
+
+    .card-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
     .card-tag {
-      align-self: flex-start;
       padding: 4px 10px;
       border-radius: 6px;
       background: rgba(125, 211, 252, 0.15);
       color: var(--glacier-accent);
       font-size: 0.75rem;
       font-weight: 700;
-      margin-bottom: 10px;
+    }
+
+    .badge-completed {
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(16, 185, 129, 0.18);
+      color: #34d399;
+      font-size: 0.72rem;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
     }
 
     .card-title {
@@ -403,6 +433,14 @@
       text-decoration: none;
       font-weight: 700;
       font-size: 0.88rem;
+    }
+
+    .btn-support.completed-btn {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(52, 211, 153, 0.35);
+      color: #34d399;
+      pointer-events: none;
+      cursor: default;
     }
 
     .btn-copy {
@@ -533,8 +571,7 @@
   </style>
 </head>
 <body>
-
-  <div class="container">
+<div class="container">
     <!-- Header -->
     <header>
       <div class="logo-container">
@@ -624,7 +661,7 @@
     <!-- Section: Link Campaign Cards -->
     <div id="campaignsSection">
       <div class="section-title">
-        <span><i class="fa-solid fa-bullhorn"></i> Active Project Campaigns</span>
+        <span><i class="fa-solid fa-bullhorn"></i> Project Campaigns</span>
       </div>
       <div class="grid" id="cardsGrid"></div>
     </div>
@@ -664,17 +701,26 @@
   <div id="toast" class="toast">
     <i class="fa-solid fa-circle-check"></i>
     <span>Link copied to clipboard!</span>
-  </div>
-
+   </div>
   <script>
     const campaigns = [
+      {
+        id: 7,
+        title: "Juancast Birthday LED Ads",
+        type: "votings",
+        tag: "JuanCast • Birthday Poll",
+        desc: "Cast your daily votes on JuanCast to win a special Birthday LED Billboard advertisement for BINI Aiah!",
+        link: "https://juancast.ph/castvote.php?pollID=il8NvKwTjCHv1DLqya1j",
+        completed: false
+      },
       {
         id: 1,
         title: "Seoul Banner ads (OOH)",
         type: "fundings",
         tag: "Korea • Billboard",
         desc: "Out-of-home banner advertisement campaign in Seoul, South Korea to boost international visibility.",
-        link: "https://kookylinkpage.kooky.io/content/funding/667"
+        link: "https://kookylinkpage.kooky.io/content/funding/667",
+        completed: true
       },
       {
         id: 2,
@@ -682,39 +728,8 @@
         type: "fundings",
         tag: "Social Media • Digital",
         desc: "Targeted Instagram Reels promotional campaign aiming for over 100k+ views to expand digital reach.",
-        link: "https://kookylinkpage.kooky.io/content/funding/669"
-      },
-      {
-        id: 3,
-        title: "LA & Texas Screen Ads in U.S",
-        type: "fundings",
-        tag: "USA • Digital Screen",
-        desc: "High-impact digital screen advertisements across prominent locations in Los Angeles and Texas.",
-        link: "https://kookylinkpage.kooky.io/content/funding/666"
-      },
-      {
-        id: 4,
-        title: "Malaysia Shopping Mall Ads",
-        type: "fundings",
-        tag: "Malaysia • Mall Display",
-        desc: "Promotional LED display advertisements inside premier shopping malls across Malaysia.",
-        link: "https://kookylinkpage.kooky.io/content/funding/668"
-      },
-      {
-        id: 5,
-        title: "Manila LED ads",
-        type: "fundings",
-        tag: "Philippines • LED Screen",
-        desc: "Prime LED billboard advertising campaign located along major highways in Metro Manila.",
-        link: "https://kookylinkpage.kooky.io/content/funding/670"
-      },
-      {
-        id: 6,
-        title: "Seoul Subway Ads",
-        type: "fundings",
-        tag: "Korea • Subway Screen",
-        desc: "High-foot-traffic subway station screen advertisements across major lines in Seoul.",
-        link: "https://kookylinkpage.kooky.io/content/funding/671"
+        link: "https://kookylinkpage.kooky.io/content/funding/669",
+        completed: false
       }
     ];
 
@@ -736,18 +751,30 @@
 
       filtered.forEach(item => {
         const card = document.createElement('div');
-        card.className = 'card';
+        card.className = `card${item.completed ? ' completed' : ''}`;
+
+        const actionBtn = item.completed
+          ? `<span class="btn-support completed-btn"><i class="fa-solid fa-circle-check"></i> Completed</span>`
+          : `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="btn-support">
+              <i class="fa-solid ${item.type === 'votings' ? 'fa-check-to-slot' : 'fa-heart'}"></i> ${item.type === 'votings' ? 'Vote Now' : 'Support Now'}
+            </a>`;
+
+        const statusBadge = item.completed
+          ? `<span class="badge-completed"><i class="fa-solid fa-check"></i> Complete</span>`
+          : '';
+
         card.innerHTML = `
           <div>
-            <span class="card-tag">${item.tag}</span>
+            <div class="card-top-row">
+              <span class="card-tag">${item.tag}</span>
+              ${statusBadge}
+            </div>
             <h3 class="card-title">${item.title}</h3>
             <p class="card-desc">${item.desc}</p>
           </div>
           <div class="card-actions">
-            <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="btn-support">
-              <i class="fa-solid fa-heart"></i> Support Now
-            </a>
-            <button class="btn-copy" onclick="copyLink('${item.link}')" title="Copy Funding Link">
+            ${actionBtn}
+            <button class="btn-copy" onclick="copyLink('${item.link}')" title="Copy Link">
               <i class="fa-solid fa-copy"></i>
             </button>
           </div>
@@ -793,3 +820,5 @@
   </script>
 </body>
 </html>
+
+          
