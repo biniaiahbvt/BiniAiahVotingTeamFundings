@@ -608,6 +608,29 @@
       </p>
     </div>
 
+    <!-- Featured Pre-Order Banner -->
+    <div class="drive-card" style="margin-bottom: 25px; border-color: var(--glacier-accent); background: linear-gradient(135deg, rgba(2, 132, 199, 0.28), rgba(15, 23, 42, 0.85));">
+      <div class="drive-card-header">
+        <span class="drive-tag">OFFICIAL MERCH • PRE-ORDER</span>
+        <span class="status-dot">Open Now</span>
+      </div>
+      <div>
+        <h3 class="drive-title">AIAHrchives Merch Pre-Order Form</h3>
+        <p class="drive-desc" style="margin-bottom: 6px;">Order official AIAHrchives fan merchandise to support BINI Aiah's upcoming birthday and LED projects.</p>
+        <a href="https://form.jotform.com/263170665355460" target="_blank" rel="noopener noreferrer" style="color: var(--glacier-accent); font-size: 0.82rem; font-weight: 600; word-break: break-all;">
+          https://form.jotform.com/263170665355460
+        </a>
+      </div>
+      <div class="card-actions">
+        <a href="https://form.jotform.com/263170665355460" target="_blank" rel="noopener noreferrer" class="btn-support">
+          <i class="fa-solid fa-bag-shopping"></i> Open Pre-Order Form
+        </a>
+        <button class="btn-copy" onclick="copyLink('https://form.jotform.com/263170665355460')" title="Copy Pre-Order Link">
+          <i class="fa-solid fa-copy"></i>
+        </button>
+      </div>
+    </div>
+
     <!-- Active Directory Navigation -->
     <div class="directory-bar">
       <button class="tab-btn active" onclick="switchTab('all', this)">
@@ -619,6 +642,14 @@
       <button class="tab-btn" onclick="switchTab('votings', this)">
         <i class="fa-solid fa-check-to-slot"></i> Votings
       </button>
+    </div>
+
+    <!-- Section: Link Campaign Cards -->
+    <div id="campaignsSection" style="margin-bottom: 35px;">
+      <div class="section-title">
+        <span><i class="fa-solid fa-bullhorn"></i> Project Campaigns</span>
+      </div>
+      <div class="grid" id="cardsGrid"></div>
     </div>
 
     <!-- Section: Funding Drives (GCash Direct QR) -->
@@ -656,14 +687,6 @@
           </button>
         </div>
       </div>
-    </div>
-
-    <!-- Section: Link Campaign Cards -->
-    <div id="campaignsSection">
-      <div class="section-title">
-        <span><i class="fa-solid fa-bullhorn"></i> Project Campaigns</span>
-      </div>
-      <div class="grid" id="cardsGrid"></div>
     </div>
 
     <!-- Footer -->
@@ -787,6 +810,7 @@
             </div>
             <h3 class="card-title">${item.title}</h3>
             <p class="card-desc">${item.desc}</p>
+            <a href="${item.link}" target="_blank" rel="noopener noreferrer" style="display: inline-block; color: var(--glacier-accent); font-size: 0.78rem; margin-bottom: 14px; word-break: break-all;">${item.link}</a>
           </div>
           <div class="card-actions">
             ${actionBtn}
